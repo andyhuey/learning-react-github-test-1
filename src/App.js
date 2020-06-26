@@ -20,7 +20,7 @@ function GitHubUser({ login }) {
       avatar_url,
       location
     });
-  }, [data]);
+  }, [data, login]);
 
   useEffect(() => {
     if (!login) return;
@@ -30,7 +30,7 @@ function GitHubUser({ login }) {
       .then(response => response.json())
       .then(setData)
       .catch(console.error);
-  }, [login]);
+  }, [login, data]);
 
   if (data) return <pre>{JSON.stringify(data, null, 2)}</pre>;
 
@@ -39,14 +39,6 @@ function GitHubUser({ login }) {
 
 export default function App() {
   // note that this needs to be capitalized the same as it is in github.
-  //return <GitHubUser login="MoonHighway" />;
-  return <GitHubUser login="andyhuey" />;
+  return <GitHubUser login="MoonHighway" />;
+  //return <GitHubUser login="andyhuey" />;
 }
-// export default function App() {
-//   return (
-//     <div className="App">
-//       <h1>Hello CodeSandbox</h1>
-//       <h2>Start editing to see some magic happen!</h2>
-//     </div>
-//   );
-//}
