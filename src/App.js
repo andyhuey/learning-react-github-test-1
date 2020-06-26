@@ -9,18 +9,23 @@ function GitHubUser({ login }) {
 
   useEffect(() => {
     if (!data) return;
-    if (data.login === login) return;
+    console.log(`login=${login}`);
+    console.log(`data.login=${data.login}`);
+    if (data.login !== login) return;
     const { name, avatar_url, location } = data;
+    console.log(`Saving data for ${login}, ${name}.`);
     saveJSON(`user:${login}`, {
       name,
       login,
       avatar_url,
       location
     });
-  }, [data, login]);
+  }, [data]);
 
   useEffect(() => {
     if (!login) return;
+    if (data && data.login === login) return;
+    console.log(`Fetching data for ${login}.`);
     fetch(`https://api.github.com/users/${login}`)
       .then(response => response.json())
       .then(setData)
@@ -33,7 +38,9 @@ function GitHubUser({ login }) {
 }
 
 export default function App() {
-  return <GitHubUser login="moonhighway" />;
+  // note that this needs to be capitalized the same as it is in github.
+  //return <GitHubUser login="MoonHighway" />;
+  return <GitHubUser login="andyhuey" />;
 }
 // export default function App() {
 //   return (
